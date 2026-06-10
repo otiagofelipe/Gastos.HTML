@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Novo Lançamento</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-family: 'Segoe UI', system-ui, sans-serif; padding: 20px;
+    gap: 16px;
+  }
+
+  /* Seletor de aba */
+  .aba-selector {
+    display: flex; gap: 8px;
+  }
+  .aba-btn {
+    padding: 8px 22px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.5);
+    font-size: 13px; font-weight: 600; cursor: pointer;
+    transition: all 0.2s; font-family: inherit; letter-spacing: 0.3px;
+  }
+  .aba-btn.active {
+    background: linear-gradient(135deg, #4f8ef7, #7c5cbf);
+    border-color: transparent; color: #fff;
+    box-shadow: 0 4px 14px rgba(79,142,247,0.35);
+  }
+
+  .wrapper {
+    display: flex; gap: 20px; align-items: flex-start;
+    width: 100%; max-width: 900px;
+  }
+  .card {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 24px; padding: 40px;
+    width: 100%; max-width: 420px; flex-shrink: 0;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+  }
+  .preview {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 24px; padding: 28px;
+    flex: 1; min-width: 0;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+  }
+  .preview h2 {
+    color: rgba(255,255,255,0.7); font-size: 12px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 16px;
+  }
+  .preview-row {
+    padding: 10px 12px; border-radius: 10px;
+    background: rgba(255,255,255,0.05);
+    margin-bottom: 8px; display: flex; flex-direction: column; gap: 3px;
+  }
+  .preview-row:last-child { margin-bottom: 0; }
+  .preview-estab { color: #fff; font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .preview-bottom { display: flex; justify-content: space-between; align-items: center; }
+  .preview-valor { color: #4f8ef7; font-size: 13px; font-weight: 700; }
+  .preview-data { color: rgba(255,255,255,0.35); font-size: 11px; }
+  .preview-loading { color: rgba(255,255,255,0.3); font-size: 13px; text-align: center; padding: 20px 0; }
+
+  .header { text-align: center; margin-bottom: 36px; }
+  .header .icon { font-size: 40px; margin-bottom: 8px; }
+  .header h1 { color: #fff; font-size: 22px; font-weight: 700; }
+  .header p { color: rgba(255,255,255,0.45); font-size: 13px; margin-top: 6px; }
+  .field { margin-bottom: 20px; }
+  label {
+    color: rgba(255,255,255,0.7); font-size: 12px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.8px; display: block; margin-bottom: 8px;
+  }
+  input {
+    width: 100%;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 12px; padding: 14px 16px;
+    color: #fff; font-size: 15px; outline: none;
+    transition: border-color 0.2s; font-family: inherit;
+  }
+  input:focus { border-color: #4f8ef7; }
+  input#valor { font-size: 18px; font-weight: 600; }
+  input#estab { text-transform: capitalize; }
+  .hint { color: rgba(255,255,255,0.35); font-size: 11px; margin: 6px 0 0 4px; }
+  .msg {
+    border-radius: 10px; padding: 12px 16px;
+    margin-bottom: 16px; font-size: 13px; display: none;
+  }
+  .msg.error { background: rgba(255,80,80,0.15); border: 1px solid rgba(255,80,80,0.3); color: #ff8080; }
+  .msg.success { background: rgba(80,200,120,0.15); border: 1px solid rgba(80,200,120,0.3); color: #80e0a0; }
+  button#btn {
+    width: 100%; padding: 16px;
+    background: linear-gradient(135deg, #4f8ef7, #7c5cbf);
+    border: none; border-radius: 14px; color: #fff;
+    font-size: 16px; font-weight: 700; cursor: pointer;
+    transition: opacity 0.2s, transform 0.1s;
+    letter-spacing: 0.3px;
+    box-shadow: 0 4px 20px rgba(79,142,247,0.3);
+    font-family: inherit;
+  }
+  button#btn:hover { transform: translateY(-1px); }
+  button#btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  @media (max-width: 700px) {
+    .wrapper { flex-direction: column; }
+    .preview { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- Seletor de aba -->
+  <div class="aba-selector">
+    <button class="aba-btn" onclick="setAba('Gastos')">Gastos</button>
+    <button class="aba-btn active" onclick="setAba('Teste')">Teste</button>
+  </div>
+
+  <div class="wrapper">
+    <!-- Formulário -->
+    <div class="card">
+      <div class="header">
+        <div class="icon">💸</div>
+        <h1>Novo Lançamento</h1>
+        <p id="aba-label">Aba: Teste</p>
+      </div>
+
+      <div class="field">
+        <label for="valor">Valor (R$)</label>
+        <input type="text" id="valor" inputmode="decimal" placeholder="0,00">
+      </div>
+
+      <div class="field">
+        <label for="estab">Estabelecimento</label>
+        <input type="text" id="estab" placeholder="Ex: Mercado, Farmácia...">
+      </div>
+
+      <div class="field" style="margin-bottom:28px">
+        <label for="data">Data</label>
+        <input type="text" id="data" placeholder="08/06">
+        <p class="hint">↑ traz última data • ← diminui dia • → aumenta dia</p>
+      </div>
+
+      <div id="msg" class="msg"></div>
+      <button id="btn">💾 Salvar no Sheets</button>
+    </div>
+
+    <!-- Preview -->
+    <div class="preview">
+      <h2>📋 Últimos lançamentos</h2>
+      <div id="preview-list"><p class="preview-loading">Carregando...</p></div>
+    </div>
+  </div>
+
+<script>
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby1OLVDIMfr5ukkZTGZiQNjU3YkVLY2b9EaE56IkP-Gg4PdG9M-4siXPIcwsC5rFzhsbg/exec";
+let lastDate = null;
+let abaAtual = "Teste";
+
+function setAba(nome) {
+  abaAtual = nome;
+  document.getElementById("aba-label").textContent = "Aba: " + nome;
+  document.querySelectorAll(".aba-btn").forEach(b => {
+    b.classList.toggle("active", b.textContent === nome);
+  });
+  loadPreview();
+}
+
+// ── Valor ──
+document.getElementById("valor").addEventListener("keydown", function(e) {
+  if (e.key === "Backspace") {
+    e.preventDefault();
+    let digits = this.value.replace(/\D/g, "").slice(0, -1);
+    this.value = formatBank(digits);
+  }
+});
+document.getElementById("valor").addEventListener("input", function() {
+  let digits = this.value.replace(/\D/g, "");
+  this.value = formatBank(digits);
+});
+function formatBank(digits) {
+  if (!digits) return "";
+  let num = parseInt(digits, 10);
+  let reais = Math.floor(num / 100);
+  let centavos = num % 100;
+  return reais.toLocaleString("pt-BR") + "," + String(centavos).padStart(2, "0");
+}
+
+// ── Data ──
+function parseDate(raw) {
+  const year = new Date().getFullYear();
+  let s = raw.trim().replace(/[^\d]/g, "/").replace(/\/+/g, "/");
+  if (/^\d+$/.test(raw.trim())) {
+    s = raw.trim().replace(/^(\d{2})(\d{2})(\d{4})?/, (_, d, m, y) => y ? `${d}/${m}/${y}` : `${d}/${m}`);
+  }
+  const m = s.match(/^(\d{1,2})\/(\d{1,2})(?:\/(\d{4}))?/);
+  if (m) {
+    const d = m[1].padStart(2,"0"), mo = m[2].padStart(2,"0"), y = m[3] || year;
+    return `${d}/${mo}/${y} 12:00:00`;
+  }
+  return null;
+}
+function isFullDate(s) {
+  return /^\d{2}\/\d{2}\/\d{4} \d{2}:\d{2}:\d{2}$/.test(s);
+}
+function addDays(dateStr, delta) {
+  const [dp, tp] = dateStr.split(" ");
+  const [d, mo, y] = dp.split("/").map(Number);
+  const dt = new Date(y, mo-1, d);
+  dt.setDate(dt.getDate() + delta);
+  return `${String(dt.getDate()).padStart(2,"0")}/${String(dt.getMonth()+1).padStart(2,"0")}/${dt.getFullYear()} ${tp}`;
+}
+
+document.getElementById("data").addEventListener("keydown", function(e) {
+  if (e.key === "ArrowUp") {
+    e.preventDefault();
+    if (lastDate) {
+      this.value = lastDate;
+    } else {
+      const hoje = new Date();
+      const d = String(hoje.getDate()).padStart(2,"0");
+      const m = String(hoje.getMonth()+1).padStart(2,"0");
+      this.value = `${d}/${m}/${hoje.getFullYear()} 12:00:00`;
+    }
+    return;
+  }
+  if (isFullDate(this.value)) {
+    if (e.key === "ArrowRight") { e.preventDefault(); this.value = addDays(this.value, 1); }
+    if (e.key === "ArrowLeft")  { e.preventDefault(); this.value = addDays(this.value, -1); }
+  }
+});
+document.getElementById("data").addEventListener("blur", function() {
+  const p = parseDate(this.value.trim());
+  if (p) this.value = p;
+});
+
+// ── Preview ──
+async function loadPreview() {
+  const list = document.getElementById("preview-list");
+  list.innerHTML = '<p class="preview-loading">Carregando...</p>';
+  try {
+    const res = await fetch(`${APPS_SCRIPT_URL}?aba=${encodeURIComponent(abaAtual)}`);
+    const json = await res.json();
+    if (!json.rows || !json.rows.length) {
+      list.innerHTML = '<p class="preview-loading">Nenhum lançamento ainda.</p>';
+      return;
+    }
+    list.innerHTML = json.rows.map(row => {
+      const valor = row[0] !== undefined && row[0] !== "" ? `R$ ${String(row[0]).replace(".", ",")}` : "—";
+      const estab = row[1] || "—";
+      const data  = row[2] ? String(row[2]).slice(0, 10) : "—";
+      return `
+        <div class="preview-row">
+          <div class="preview-estab">${estab}</div>
+          <div class="preview-bottom">
+            <span class="preview-valor">${valor}</span>
+            <span class="preview-data">${data}</span>
+          </div>
+        </div>`;
+    }).join("");
+  } catch(e) {
+    list.innerHTML = '<p class="preview-loading">Erro ao carregar.</p>';
+  }
+}
+
+// ── Mensagem ──
+function showMsg(type, text) {
+  const el = document.getElementById("msg");
+  el.className = "msg " + type;
+  el.style.display = "block";
+  el.textContent = type === "error" ? "⚠️ " + text : "✅ " + text;
+  if (type === "success") setTimeout(() => el.style.display = "none", 3000);
+}
+
+// ── Salvar ──
+document.getElementById("btn").addEventListener("click", async function() {
+  const valorRaw = document.getElementById("valor").value.trim();
+  const estab    = document.getElementById("estab").value.trim();
+  let data       = document.getElementById("data").value.trim();
+
+  if (!valorRaw || !estab || !data) return showMsg("error", "Preencha todos os campos.");
+
+  if (!isFullDate(data)) {
+    const p = parseDate(data);
+    if (!p) return showMsg("error", "Data inválida. Use o formato dd/mm.");
+    data = p;
+    document.getElementById("data").value = data;
+  }
+
+  const valorNum = valorRaw.replace(/\./g, "");
+  const btn = document.getElementById("btn");
+  btn.disabled = true;
+  btn.textContent = "⏳ Salvando...";
+
+  const params = new URLSearchParams({ valor: valorNum, estabelecimento: estab, data, aba: abaAtual });
+
+  try {
+    await fetch(`${APPS_SCRIPT_URL}?${params}`, { mode: "no-cors" });
+    lastDate = data;
+    document.getElementById("valor").value = "";
+    document.getElementById("estab").value = "";
+    document.getElementById("data").value = "";
+    showMsg("success", "Lançamento salvo com sucesso!");
+    document.getElementById("valor").focus();
+    setTimeout(loadPreview, 1500);
+  } catch(err) {
+    showMsg("error", "Erro ao salvar: " + err.message);
+  }
+
+  btn.disabled = false;
+  btn.textContent = "💾 Salvar no Sheets";
+});
+
+// ── Enter inteligente ──
+document.addEventListener("keydown", function(e) {
+  if (e.key !== "Enter") return;
+  const campos = ["valor", "estab", "data"];
+  const vazio = campos.find(id => !document.getElementById(id).value.trim());
+  if (vazio) {
+    e.preventDefault();
+    document.getElementById(vazio).focus();
+  } else {
+    document.getElementById("btn").click();
+  }
+});
+
+loadPreview();
+</script>
+</body>
+</html>
