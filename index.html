@@ -10,53 +10,40 @@
     min-height: 100vh;
     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
     display: flex; flex-direction: column; align-items: center; justify-content: center;
-    font-family: 'Segoe UI', system-ui, sans-serif; padding: 20px;
-    gap: 16px;
+    font-family: 'Segoe UI', system-ui, sans-serif; padding: 20px; gap: 16px;
   }
-
-  /* Seletor de aba */
-  .aba-selector {
-    display: flex; gap: 8px;
-  }
+  .aba-selector { display: flex; gap: 8px; }
   .aba-btn {
     padding: 8px 22px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.15);
     background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.5);
-    font-size: 13px; font-weight: 600; cursor: pointer;
-    transition: all 0.2s; font-family: inherit; letter-spacing: 0.3px;
+    font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: inherit;
   }
   .aba-btn.active {
     background: linear-gradient(135deg, #4f8ef7, #7c5cbf);
-    border-color: transparent; color: #fff;
-    box-shadow: 0 4px 14px rgba(79,142,247,0.35);
+    border-color: transparent; color: #fff; box-shadow: 0 4px 14px rgba(79,142,247,0.35);
   }
-
-  .wrapper {
-    display: flex; gap: 20px; align-items: flex-start;
-    width: 100%; max-width: 900px;
-  }
+  .wrapper { display: flex; gap: 20px; align-items: stretch; width: 100%; max-width: 900px; }
   .card {
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 24px; padding: 40px;
-    width: 100%; max-width: 420px; flex-shrink: 0;
-    box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+    background: rgba(255,255,255,0.05); backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; padding: 40px;
+    width: 420px; flex-shrink: 0; box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+    display: flex; flex-direction: column;
   }
   .preview {
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 24px; padding: 28px;
-    flex: 1; min-width: 0;
-    box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+    background: rgba(255,255,255,0.05); backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; padding: 28px;
+    flex: 1; min-width: 0; box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+    display: flex; flex-direction: column;
   }
   .preview h2 {
     color: rgba(255,255,255,0.7); font-size: 12px; font-weight: 600;
-    text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 16px;
+    text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 16px; flex-shrink: 0;
   }
+  .preview-scroll { flex: 1; overflow-y: auto; }
+  .preview-scroll::-webkit-scrollbar { width: 4px; }
+  .preview-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
   .preview-row {
-    padding: 10px 12px; border-radius: 10px;
-    background: rgba(255,255,255,0.05);
+    padding: 10px 12px; border-radius: 10px; background: rgba(255,255,255,0.05);
     margin-bottom: 8px; display: flex; flex-direction: column; gap: 3px;
   }
   .preview-row:last-child { margin-bottom: 0; }
@@ -65,167 +52,226 @@
   .preview-valor { color: #4f8ef7; font-size: 13px; font-weight: 700; }
   .preview-data { color: rgba(255,255,255,0.35); font-size: 11px; }
   .preview-loading { color: rgba(255,255,255,0.3); font-size: 13px; text-align: center; padding: 20px 0; }
-
   .header { text-align: center; margin-bottom: 36px; }
   .header .icon { font-size: 40px; margin-bottom: 8px; }
   .header h1 { color: #fff; font-size: 22px; font-weight: 700; }
   .header p { color: rgba(255,255,255,0.45); font-size: 13px; margin-top: 6px; }
   .field { margin-bottom: 20px; }
-  label {
-    color: rgba(255,255,255,0.7); font-size: 12px; font-weight: 600;
-    text-transform: uppercase; letter-spacing: 0.8px; display: block; margin-bottom: 8px;
-  }
+  label { color: rgba(255,255,255,0.7); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; display: block; margin-bottom: 8px; }
   input {
-    width: 100%;
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 12px; padding: 14px 16px;
-    color: #fff; font-size: 15px; outline: none;
+    width: 100%; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 12px; padding: 14px 16px; color: #fff; font-size: 15px; outline: none;
     transition: border-color 0.2s; font-family: inherit;
   }
   input:focus { border-color: #4f8ef7; }
   input#valor { font-size: 18px; font-weight: 600; }
   input#estab { text-transform: capitalize; }
   .hint { color: rgba(255,255,255,0.35); font-size: 11px; margin: 6px 0 0 4px; }
-  .msg {
-    border-radius: 10px; padding: 12px 16px;
-    margin-bottom: 16px; font-size: 13px; display: none;
-  }
+  .msg { border-radius: 10px; padding: 12px 16px; margin-bottom: 16px; font-size: 13px; display: none; }
   .msg.error { background: rgba(255,80,80,0.15); border: 1px solid rgba(255,80,80,0.3); color: #ff8080; }
   .msg.success { background: rgba(80,200,120,0.15); border: 1px solid rgba(80,200,120,0.3); color: #80e0a0; }
+  .spacer { flex: 1; }
   button#btn {
-    width: 100%; padding: 16px;
-    background: linear-gradient(135deg, #4f8ef7, #7c5cbf);
-    border: none; border-radius: 14px; color: #fff;
-    font-size: 16px; font-weight: 700; cursor: pointer;
-    transition: opacity 0.2s, transform 0.1s;
-    letter-spacing: 0.3px;
-    box-shadow: 0 4px 20px rgba(79,142,247,0.3);
-    font-family: inherit;
+    width: 100%; padding: 16px; background: linear-gradient(135deg, #4f8ef7, #7c5cbf);
+    border: none; border-radius: 14px; color: #fff; font-size: 16px; font-weight: 700;
+    cursor: pointer; transition: opacity 0.2s, transform 0.1s; letter-spacing: 0.3px;
+    box-shadow: 0 4px 20px rgba(79,142,247,0.3); font-family: inherit;
   }
   button#btn:hover { transform: translateY(-1px); }
   button#btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-
-  @media (max-width: 700px) {
-    .wrapper { flex-direction: column; }
-    .preview { width: 100%; }
+  .visoes { width: 100%; max-width: 900px; }
+  .visoes-tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+  .visao-tab {
+    padding: 8px 22px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.5);
+    font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: inherit;
   }
+  .visao-tab.active { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.25); color: #fff; }
+  .visao-panel {
+    background: rgba(255,255,255,0.05); backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; padding: 28px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.4); display: flex; flex-direction: column; height: 340px;
+  }
+  .visao-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-shrink: 0; }
+  .visao-titulo { color: rgba(255,255,255,0.7); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; }
+  .visao-nav { display: flex; align-items: center; gap: 10px; }
+  .visao-nav .nav-btn {
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+    color: #fff; border-radius: 8px; width: 28px; height: 28px; cursor: pointer;
+    font-size: 14px; font-family: inherit; display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+  }
+  .visao-nav .nav-btn:hover { background: rgba(255,255,255,0.15); }
+  .visao-nav .periodo-label {
+    color: #fff; font-size: 13px; font-weight: 600; min-width: 160px; text-align: center;
+    cursor: pointer; transition: color 0.2s;
+  }
+  .visao-nav .periodo-label:hover { color: #4f8ef7; }
+  .visao-lista { flex: 1; overflow-y: auto; margin-bottom: 16px; }
+  .visao-lista::-webkit-scrollbar { width: 4px; }
+  .visao-lista::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  .visao-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; border-radius: 10px; background: rgba(255,255,255,0.05); margin-bottom: 8px; }
+  .visao-item:last-child { margin-bottom: 0; }
+  .visao-item-esq { display: flex; flex-direction: column; gap: 2px; }
+  .visao-item-estab { color: #fff; font-size: 13px; font-weight: 600; }
+  .visao-item-data { color: rgba(255,255,255,0.35); font-size: 11px; }
+  .visao-item-valor { color: #4f8ef7; font-size: 13px; font-weight: 700; }
+  .visao-vazio { color: rgba(255,255,255,0.3); font-size: 13px; text-align: center; padding: 20px 0; }
+  .visao-total {
+    border-top: 1px solid rgba(255,255,255,0.1); padding-top: 14px; flex-shrink: 0;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .visao-total span { color: rgba(255,255,255,0.6); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+  .visao-total strong { color: #fff; font-size: 18px; font-weight: 700; }
+  @media (max-width: 700px) { .wrapper { flex-direction: column; } }
 </style>
 </head>
 <body>
 
-  <!-- Seletor de aba -->
-  <div class="aba-selector">
-    <button class="aba-btn" onclick="setAba('Gastos')">Gastos</button>
-    <button class="aba-btn active" onclick="setAba('Teste')">Teste</button>
+<div class="aba-selector">
+  <button class="aba-btn" onclick="setAba('Gastos')">Gastos</button>
+  <button class="aba-btn active" onclick="setAba('Teste')">Teste</button>
+</div>
+
+<div class="wrapper">
+  <div class="card">
+    <div class="header">
+      <div class="icon">💸</div>
+      <h1>Novo Lançamento</h1>
+      <p id="aba-label">Aba: Teste</p>
+    </div>
+    <div class="field">
+      <label for="valor">Valor (R$)</label>
+      <input type="text" id="valor" inputmode="decimal" placeholder="0,00">
+    </div>
+    <div class="field">
+      <label for="estab">Estabelecimento</label>
+      <input type="text" id="estab" placeholder="Ex: Mercado, Farmácia...">
+    </div>
+    <div class="field">
+      <label for="data">Data</label>
+      <div style="position:relative">
+        <input type="text" id="data" placeholder="08/06" style="padding-right:44px">
+        <input type="date" id="data-picker" style="position:absolute;opacity:0;width:1px;height:1px;top:0;right:0;pointer-events:none;">
+        <button onclick="abrirPickerData()" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:18px;padding:0;width:auto;color:rgba(255,255,255,0.5);">📅</button>
+      </div>
+      <p class="hint">↑ traz última data • ← diminui dia • → aumenta dia</p>
+    </div>
+    <div class="spacer"></div>
+    <div id="msg" class="msg"></div>
+    <button id="btn">💾 Salvar no Sheets</button>
   </div>
 
-  <div class="wrapper">
-    <!-- Formulário -->
-    <div class="card">
-      <div class="header">
-        <div class="icon">💸</div>
-        <h1>Novo Lançamento</h1>
-        <p id="aba-label">Aba: Teste</p>
-      </div>
-
-      <div class="field">
-        <label for="valor">Valor (R$)</label>
-        <input type="text" id="valor" inputmode="decimal" placeholder="0,00">
-      </div>
-
-      <div class="field">
-        <label for="estab">Estabelecimento</label>
-        <input type="text" id="estab" placeholder="Ex: Mercado, Farmácia...">
-      </div>
-
-      <div class="field" style="margin-bottom:28px">
-        <label for="data">Data</label>
-        <input type="text" id="data" placeholder="08/06">
-        <p class="hint">↑ traz última data • ← diminui dia • → aumenta dia</p>
-      </div>
-
-      <div id="msg" class="msg"></div>
-      <button id="btn">💾 Salvar no Sheets</button>
-    </div>
-
-    <!-- Preview -->
-    <div class="preview">
-      <h2>📋 Últimos lançamentos</h2>
-      <div id="preview-list"><p class="preview-loading">Carregando...</p></div>
+  <div class="preview">
+    <h2>📋 Últimos lançamentos</h2>
+    <div class="preview-scroll" id="preview-list">
+      <p class="preview-loading">Carregando...</p>
     </div>
   </div>
+</div>
+
+<div class="visoes">
+  <div class="visoes-tabs">
+    <button class="visao-tab active" onclick="setVisao('dia')">Dia</button>
+    <button class="visao-tab" onclick="setVisao('semana')">Semana</button>
+    <button class="visao-tab" onclick="setVisao('mes')">Mês</button>
+  </div>
+  <div class="visao-panel">
+    <div class="visao-header">
+      <span class="visao-titulo" id="visao-titulo">Dia</span>
+      <div class="visao-nav">
+        <button class="nav-btn" onclick="navVisao(-1)">‹</button>
+        <span class="periodo-label" id="visao-periodo" onclick="abrirPickerVisao()"></span>
+        <input type="date" id="visao-picker" style="position:absolute;opacity:0;width:1px;height:1px;pointer-events:none;">
+        <button class="nav-btn" onclick="navVisao(1)">›</button>
+      </div>
+    </div>
+    <div class="visao-lista" id="visao-lista"></div>
+    <div class="visao-total">
+      <span>Total</span>
+      <strong id="visao-total">R$ 0,00</strong>
+    </div>
+  </div>
+</div>
 
 <script>
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby1OLVDIMfr5ukkZTGZiQNjU3YkVLY2b9EaE56IkP-Gg4PdG9M-4siXPIcwsC5rFzhsbg/exec";
+const URL_AS = "https://script.google.com/macros/s/AKfycby1OLVDIMfr5ukkZTGZiQNjU3YkVLY2b9EaE56IkP-Gg4PdG9M-4siXPIcwsC5rFzhsbg/exec";
 let lastDate = null;
 let abaAtual = "Teste";
+let cache = {};
+let visaoAtual = "dia";
+let visaoOffset = 0;
 
+// ── Formatação de valor para exibição ──
+function fmtValor(raw) {
+  const str = String(raw || "0").trim();
+  const v = str.includes(",")
+    ? parseFloat(str.replace(/\./g, "").replace(",", "."))
+    : parseFloat(str);
+  if (isNaN(v)) return "—";
+  return v.toLocaleString("pt-BR", {minimumFractionDigits: 2, maximumFractionDigits: 2});
+}
+
+function parseValor(raw) {
+  const str = String(raw || "0").trim();
+  const v = str.includes(",")
+    ? parseFloat(str.replace(/\./g, "").replace(",", "."))
+    : parseFloat(str);
+  return isNaN(v) ? 0 : v;
+}
+
+// ── Aba ──
 function setAba(nome) {
   abaAtual = nome;
   document.getElementById("aba-label").textContent = "Aba: " + nome;
-  document.querySelectorAll(".aba-btn").forEach(b => {
-    b.classList.toggle("active", b.textContent === nome);
-  });
+  document.querySelectorAll(".aba-btn").forEach(b => b.classList.toggle("active", b.textContent === nome));
   loadPreview();
 }
 
-// ── Valor ──
+// ── Valor (estilo banco) ──
 document.getElementById("valor").addEventListener("keydown", function(e) {
   if (e.key === "Backspace") {
     e.preventDefault();
-    let digits = this.value.replace(/\D/g, "").slice(0, -1);
-    this.value = formatBank(digits);
+    this.value = formatBank(this.value.replace(/\D/g, "").slice(0, -1));
   }
 });
 document.getElementById("valor").addEventListener("input", function() {
-  let digits = this.value.replace(/\D/g, "");
-  this.value = formatBank(digits);
+  this.value = formatBank(this.value.replace(/\D/g, ""));
 });
 function formatBank(digits) {
   if (!digits) return "";
-  let num = parseInt(digits, 10);
-  let reais = Math.floor(num / 100);
-  let centavos = num % 100;
-  return reais.toLocaleString("pt-BR") + "," + String(centavos).padStart(2, "0");
+  const n = parseInt(digits, 10);
+  return Math.floor(n / 100).toLocaleString("pt-BR") + "," + String(n % 100).padStart(2, "0");
 }
 
 // ── Data ──
 function parseDate(raw) {
   const year = new Date().getFullYear();
-  let s = raw.trim().replace(/[^\d]/g, "/").replace(/\/+/g, "/");
-  if (/^\d+$/.test(raw.trim())) {
-    s = raw.trim().replace(/^(\d{2})(\d{2})(\d{4})?/, (_, d, m, y) => y ? `${d}/${m}/${y}` : `${d}/${m}`);
+  let s = raw.trim();
+  if (/^\d+$/.test(s)) {
+    s = s.replace(/^(\d{2})(\d{2})(\d{4})?/, (_, d, m, y) => y ? d+"/"+m+"/"+y : d+"/"+m);
+  } else {
+    s = s.replace(/[^\d]/g, "/").replace(/\/+/g, "/");
   }
   const m = s.match(/^(\d{1,2})\/(\d{1,2})(?:\/(\d{4}))?/);
-  if (m) {
-    const d = m[1].padStart(2,"0"), mo = m[2].padStart(2,"0"), y = m[3] || year;
-    return `${d}/${mo}/${y} 12:00:00`;
-  }
+  if (m) return m[1].padStart(2,"0")+"/"+m[2].padStart(2,"0")+"/"+(m[3]||year)+" 12:00:00";
   return null;
 }
-function isFullDate(s) {
-  return /^\d{2}\/\d{2}\/\d{4} \d{2}:\d{2}:\d{2}$/.test(s);
-}
-function addDays(dateStr, delta) {
-  const [dp, tp] = dateStr.split(" ");
+function isFullDate(s) { return /^\d{2}\/\d{2}\/\d{4} \d{2}:\d{2}:\d{2}$/.test(s); }
+function addDays(ds, delta) {
+  const [dp, tp] = ds.split(" ");
   const [d, mo, y] = dp.split("/").map(Number);
   const dt = new Date(y, mo-1, d);
   dt.setDate(dt.getDate() + delta);
-  return `${String(dt.getDate()).padStart(2,"0")}/${String(dt.getMonth()+1).padStart(2,"0")}/${dt.getFullYear()} ${tp}`;
+  return String(dt.getDate()).padStart(2,"0")+"/"+String(dt.getMonth()+1).padStart(2,"0")+"/"+dt.getFullYear()+" "+tp;
 }
 
 document.getElementById("data").addEventListener("keydown", function(e) {
   if (e.key === "ArrowUp") {
     e.preventDefault();
-    if (lastDate) {
-      this.value = lastDate;
-    } else {
-      const hoje = new Date();
-      const d = String(hoje.getDate()).padStart(2,"0");
-      const m = String(hoje.getMonth()+1).padStart(2,"0");
-      this.value = `${d}/${m}/${hoje.getFullYear()} 12:00:00`;
-    }
+    if (lastDate) { this.value = lastDate; return; }
+    const h = new Date();
+    this.value = String(h.getDate()).padStart(2,"0")+"/"+String(h.getMonth()+1).padStart(2,"0")+"/"+h.getFullYear()+" 12:00:00";
     return;
   }
   if (isFullDate(this.value)) {
@@ -238,40 +284,175 @@ document.getElementById("data").addEventListener("blur", function() {
   if (p) this.value = p;
 });
 
-// ── Preview ──
+function abrirPickerData() {
+  const picker = document.getElementById("data-picker");
+  const val = document.getElementById("data").value;
+  if (isFullDate(val)) {
+    const [dp] = val.split(" ");
+    const [d, m, y] = dp.split("/");
+    picker.value = y+"-"+m+"-"+d;
+  }
+  picker.style.pointerEvents = "auto";
+  try { picker.showPicker(); } catch(e) { picker.click(); }
+}
+document.getElementById("data-picker").addEventListener("change", function() {
+  if (!this.value) return;
+  const [y, m, d] = this.value.split("-");
+  document.getElementById("data").value = d+"/"+m+"/"+y+" 12:00:00";
+  this.style.pointerEvents = "none";
+});
+
+// ── Carregar dados ──
 async function loadPreview() {
-  const list = document.getElementById("preview-list");
-  list.innerHTML = '<p class="preview-loading">Carregando...</p>';
+  document.getElementById("preview-list").innerHTML = '<p class="preview-loading">Carregando...</p>';
   try {
-    const res = await fetch(`${APPS_SCRIPT_URL}?aba=${encodeURIComponent(abaAtual)}`);
+    const res = await fetch(URL_AS + "?aba=" + encodeURIComponent(abaAtual));
     const json = await res.json();
-    if (!json.rows || !json.rows.length) {
-      list.innerHTML = '<p class="preview-loading">Nenhum lançamento ainda.</p>';
-      return;
-    }
-    list.innerHTML = json.rows.map(row => {
-      const valor = row[0] !== undefined && row[0] !== "" ? `R$ ${String(row[0]).replace(".", ",")}` : "—";
-      const estab = row[1] || "—";
-      const data  = row[2] ? String(row[2]).slice(0, 10) : "—";
-      return `
-        <div class="preview-row">
-          <div class="preview-estab">${estab}</div>
-          <div class="preview-bottom">
-            <span class="preview-valor">${valor}</span>
-            <span class="preview-data">${data}</span>
-          </div>
-        </div>`;
-    }).join("");
+    cache[abaAtual] = {
+      rows: json.rows || [],
+      all:  (json.all || []).filter(r => r[0] || r[1] || r[2])
+    };
+    renderPreview();
+    renderVisao();
   } catch(e) {
-    list.innerHTML = '<p class="preview-loading">Erro ao carregar.</p>';
+    document.getElementById("preview-list").innerHTML = '<p class="preview-loading">Erro ao carregar.</p>';
   }
 }
+
+function renderPreview() {
+  const list = document.getElementById("preview-list");
+  const rows = (cache[abaAtual] || {}).rows || [];
+  if (!rows.length) { list.innerHTML = '<p class="preview-loading">Nenhum lançamento ainda.</p>'; return; }
+  list.innerHTML = rows.map(r =>
+    '<div class="preview-row">' +
+      '<div class="preview-estab">' + (r[1]||"—") + '</div>' +
+      '<div class="preview-bottom">' +
+        '<span class="preview-valor">R$ ' + fmtValor(r[0]) + '</span>' +
+        '<span class="preview-data">' + (r[2] ? String(r[2]).slice(0,10) : "—") + '</span>' +
+      '</div>' +
+    '</div>'
+  ).join("");
+}
+
+// ── Visões ──
+function setVisao(v) {
+  visaoAtual = v; visaoOffset = 0;
+  document.querySelectorAll(".visao-tab").forEach(b => {
+    b.classList.toggle("active", b.textContent.toLowerCase() === v || (v==="mes" && b.textContent==="Mês"));
+  });
+  document.getElementById("visao-titulo").textContent = {dia:"Dia", semana:"Semana", mes:"Mês"}[v];
+  renderVisao();
+}
+function navVisao(d) { visaoOffset += d; renderVisao(); }
+
+function parseRowDate(str) {
+  const m = String(str).match(/^(\d{2})\/(\d{2})\/(\d{4})/);
+  if (!m) return null;
+  return new Date(Date.UTC(+m[3], +m[2]-1, +m[1]));
+}
+
+function renderVisao() {
+  const now = new Date();
+  const allRows = (cache[abaAtual] || {}).all || [];
+  let label = "", filtered = [];
+
+  if (visaoAtual === "dia") {
+    const ref = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate() + visaoOffset));
+    label = new Date(ref).toLocaleDateString("pt-BR", {weekday:"short", day:"2-digit", month:"2-digit", year:"numeric", timeZone:"UTC"});
+    filtered = allRows.filter(r => {
+      const d = parseRowDate(r[2]); if (!d) return false;
+      return d.getTime() === ref.getTime();
+    });
+  } else if (visaoAtual === "semana") {
+    const refBase = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate() + visaoOffset * 7));
+    const dow = refBase.getUTCDay();
+    const seg = new Date(refBase); seg.setUTCDate(refBase.getUTCDate() - (dow===0 ? 6 : dow-1));
+    const dom = new Date(seg); dom.setUTCDate(seg.getUTCDate() + 6);
+    const fmtS = d => String(d.getUTCDate()).padStart(2,"0") + "/" +
+      d.toLocaleDateString("pt-BR",{month:"short",timeZone:"UTC"}).replace(".","").replace(/^\w/,c=>c.toUpperCase());
+    label = fmtS(seg) + " – " + fmtS(dom);
+    filtered = allRows.filter(r => {
+      const d = parseRowDate(r[2]); if (!d) return false;
+      return d >= seg && d <= dom;
+    });
+  } else {
+    const base = new Date(Date.UTC(now.getFullYear(), now.getMonth() + visaoOffset, 1));
+    const y = base.getUTCFullYear(), mo = base.getUTCMonth();
+    label = base.toLocaleDateString("pt-BR", {month:"long", year:"numeric", timeZone:"UTC"}).replace(/^\w/, c => c.toUpperCase());
+    filtered = allRows.filter(r => {
+      const d = parseRowDate(r[2]); if (!d) return false;
+      return d.getUTCMonth() === mo && d.getUTCFullYear() === y;
+    });
+  }
+
+  document.getElementById("visao-periodo").textContent = label;
+  const lista = document.getElementById("visao-lista");
+
+  if (!filtered.length) {
+    lista.innerHTML = '<p class="visao-vazio">Nenhum lançamento nesse período.</p>';
+    document.getElementById("visao-total").textContent = "R$ 0,00";
+    return;
+  }
+
+  lista.innerHTML = filtered.map(r =>
+    '<div class="visao-item">' +
+      '<div class="visao-item-esq">' +
+        '<span class="visao-item-estab">' + (r[1]||"—") + '</span>' +
+        '<span class="visao-item-data">' + (r[2] ? String(r[2]).slice(0,10) : "—") + '</span>' +
+      '</div>' +
+      '<span class="visao-item-valor">R$ ' + fmtValor(r[0]) + '</span>' +
+    '</div>'
+  ).join("");
+
+  const total = filtered.reduce((acc, r) => acc + parseValor(r[0]), 0);
+  document.getElementById("visao-total").textContent = "R$ " + total.toLocaleString("pt-BR", {minimumFractionDigits:2, maximumFractionDigits:2});
+}
+
+// ── Calendário das visões ──
+function abrirPickerVisao() {
+  const picker = document.getElementById("visao-picker");
+  const now = new Date();
+  let ref;
+  if (visaoAtual === "dia") {
+    ref = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate() + visaoOffset));
+  } else if (visaoAtual === "semana") {
+    ref = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate() + visaoOffset * 7));
+  } else {
+    ref = new Date(Date.UTC(now.getFullYear(), now.getMonth() + visaoOffset, 1));
+  }
+  const y = ref.getUTCFullYear();
+  const m = String(ref.getUTCMonth()+1).padStart(2,"0");
+  const d = String(ref.getUTCDate()).padStart(2,"0");
+  picker.value = y+"-"+m+"-"+d;
+  picker.style.pointerEvents = "auto";
+  try { picker.showPicker(); } catch(e) { picker.click(); }
+}
+document.getElementById("visao-picker").addEventListener("change", function() {
+  if (!this.value) return;
+  const [y, m, d] = this.value.split("-").map(Number);
+  const now = new Date();
+  const sel = new Date(Date.UTC(y, m-1, d));
+  if (visaoAtual === "dia") {
+    const today = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+    visaoOffset = Math.round((sel - today) / 86400000);
+  } else if (visaoAtual === "semana") {
+    const today = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+    const dow = today.getUTCDay();
+    const segHoje = new Date(today); segHoje.setUTCDate(today.getUTCDate() - (dow===0?6:dow-1));
+    const dowSel = sel.getUTCDay();
+    const segSel = new Date(sel); segSel.setUTCDate(sel.getUTCDate() - (dowSel===0?6:dowSel-1));
+    visaoOffset = Math.round((segSel - segHoje) / (86400000 * 7));
+  } else {
+    visaoOffset = (y - now.getFullYear()) * 12 + (m - 1 - now.getMonth());
+  }
+  this.style.pointerEvents = "none";
+  renderVisao();
+});
 
 // ── Mensagem ──
 function showMsg(type, text) {
   const el = document.getElementById("msg");
-  el.className = "msg " + type;
-  el.style.display = "block";
+  el.className = "msg " + type; el.style.display = "block";
   el.textContent = type === "error" ? "⚠️ " + text : "✅ " + text;
   if (type === "success") setTimeout(() => el.style.display = "none", 3000);
 }
@@ -281,25 +462,18 @@ document.getElementById("btn").addEventListener("click", async function() {
   const valorRaw = document.getElementById("valor").value.trim();
   const estab    = document.getElementById("estab").value.trim();
   let data       = document.getElementById("data").value.trim();
-
   if (!valorRaw || !estab || !data) return showMsg("error", "Preencha todos os campos.");
-
   if (!isFullDate(data)) {
     const p = parseDate(data);
     if (!p) return showMsg("error", "Data inválida. Use o formato dd/mm.");
-    data = p;
-    document.getElementById("data").value = data;
+    data = p; document.getElementById("data").value = data;
   }
-
   const valorNum = valorRaw.replace(/\./g, "");
   const btn = document.getElementById("btn");
-  btn.disabled = true;
-  btn.textContent = "⏳ Salvando...";
-
-  const params = new URLSearchParams({ valor: valorNum, estabelecimento: estab, data, aba: abaAtual });
-
+  btn.disabled = true; btn.textContent = "⏳ Salvando...";
+  const params = new URLSearchParams({valor: valorNum, estabelecimento: estab, data, aba: abaAtual});
   try {
-    await fetch(`${APPS_SCRIPT_URL}?${params}`, { mode: "no-cors" });
+    await fetch(URL_AS + "?" + params, {mode: "no-cors"});
     lastDate = data;
     document.getElementById("valor").value = "";
     document.getElementById("estab").value = "";
@@ -307,12 +481,8 @@ document.getElementById("btn").addEventListener("click", async function() {
     showMsg("success", "Lançamento salvo com sucesso!");
     document.getElementById("valor").focus();
     setTimeout(loadPreview, 1500);
-  } catch(err) {
-    showMsg("error", "Erro ao salvar: " + err.message);
-  }
-
-  btn.disabled = false;
-  btn.textContent = "💾 Salvar no Sheets";
+  } catch(err) { showMsg("error", "Erro ao salvar: " + err.message); }
+  btn.disabled = false; btn.textContent = "💾 Salvar no Sheets";
 });
 
 // ── Enter inteligente ──
@@ -320,12 +490,8 @@ document.addEventListener("keydown", function(e) {
   if (e.key !== "Enter") return;
   const campos = ["valor", "estab", "data"];
   const vazio = campos.find(id => !document.getElementById(id).value.trim());
-  if (vazio) {
-    e.preventDefault();
-    document.getElementById(vazio).focus();
-  } else {
-    document.getElementById("btn").click();
-  }
+  if (vazio) { e.preventDefault(); document.getElementById(vazio).focus(); }
+  else document.getElementById("btn").click();
 });
 
 loadPreview();
